@@ -1,0 +1,56 @@
+<div class="bookings-table-container">
+  <h5>Your bookings</h5>
+  <a routerLinkActive='active' [routerLink]="['/book']" class="book-button">View available parking spaces</a>
+  <p-table [value]="bookings" (sortFunction)="sortFn($event)" [customSort]="true" styleClass="p-datatable-striped p-datatable-responsive-demo">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="ParkingSpaceNumber">Parking space<p-sortIcon field="ParkingSpaceNumber"></p-sortIcon></th>
+        <th pSortableColumn="StartDateString">Start date<p-sortIcon field="StartDateString"></p-sortIcon></th>
+        <th pSortableColumn="EndDateString">End date<p-sortIcon field="EndDateString"></p-sortIcon></th>
+        <th pSortableColumn="Days">Days <p-sortIcon field="Days"></p-sortIcon></th>
+        <!--
+          <th pSortableColumn="MonthlyFee">Monthly fee  <p-sortIcon field="MonthlyFee"></p-sortIcon></th>
+          <th pSortableColumn="DueAmount">Due amount <p-sortIcon field="DueAmount"></p-sortIcon></th>
+        -->
+        <th class="cancel-booking-column">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>
+          <span class="p-column-title">Parking space</span>
+          {{product.ParkingSpaceNumber}}
+        </td>
+        <td>
+          <span class="p-column-title">Start date</span>
+          {{product.StartDateString}}
+        </td>
+        <td>
+          <span class="p-column-title">End date</span>
+          {{product.EndDateString}}
+        </td>
+        <td>
+          <span class="p-column-title">Days</span>
+          {{product.Days}}
+        </td>
+        <!--
+          <td>
+            <span class="p-column-title">Monthly Fee</span>
+            {{product.MonthlyFee}}
+          </td>
+          <td>
+            <span class="p-column-title">Due Amount</span>
+            {{product.DueAmount | number}}
+          </td>
+        -->
+        <td>
+          <span class="p-column-title">Action</span>
+          <button [disabled]="isCancelButtonDisabled(product.StartDateString)" class="cancel-button" (click)="cancel(product.BookingId)">Cancel</button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast position="top-center"></p-toast>
+

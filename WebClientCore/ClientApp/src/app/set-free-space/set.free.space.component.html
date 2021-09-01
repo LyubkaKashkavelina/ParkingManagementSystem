@@ -1,0 +1,27 @@
+<div class="page-container">
+  <nav-menu></nav-menu>
+  <div class="main-content">
+    <parking-info class="parking-info"></parking-info>
+    <div class="sublet-button-container">
+      <button (click)="showModalDialog()" class="button">New Sublet</button>
+    </div>
+    <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000"
+              [draggable]="false" [resizable]="false" (onHide)="close()" class="dialog">
+      <p-calendar [(ngModel)]="result" [inline]="true" [minDate]="Today" [disabledDates]="unactiveDaysInCalendar" selectionMode="range" [locale]="en"></p-calendar>
+      <div class="footer">
+        <button (click)="close()" class="modal-close-button">Close</button>
+        <button (click)="sublet()" class="modal-set-free-button" [disabled]="!result">Sublet</button>
+      </div>
+    </p-dialog>
+
+    <div class="freedSpaces">
+      <div *ngIf="!freeSpaces.length">
+        <p>Currently your parking space is not subleted.</p>
+      </div>
+
+      <free-spaces-table *ngIf="freeSpaces.length" [freeSpaces]="freeSpaces"></free-spaces-table>
+    </div>
+  </div>
+
+  <p-toast position="top-center"></p-toast>
+</div>

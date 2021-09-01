@@ -1,0 +1,27 @@
+<div class="page-container">
+  <nav-menu></nav-menu>
+  <div class="main-content">
+    <div class="parking-map-button-conainer">
+      <a href="https://park.nemetschek.bg/ParkingMap/ParkingMap.pdf" target="_blank"><button class="parking-map-button">Parking map</button></a>
+    </div>
+    <parking-info class="parking-info"></parking-info>
+    <div class="bookedSpaces">
+      <div *ngIf="!bookings.length && !parkingSpaceNumber">
+        <p>Currently you have no booked parking spaces.</p>
+      </div>
+
+      <bookings-table *ngIf="bookings.length" [bookings]="bookings"></bookings-table>
+    </div>
+    <div class="freedSpaces">
+      <div *ngIf="!freeSpaces.length && parkingSpaceNumber !== null">
+        <p>Currently your parking space is not subleted.</p>
+      </div>
+
+      <free-spaces-table *ngIf="freeSpaces.length" [freeSpaces]="freeSpaces"></free-spaces-table>
+    </div>
+    <a href="mailto:parkingsystem@gmail.com?subject=Parking%20system%20feedback" target="_blank">Send feedback for the system</a>
+  </div>
+
+  <p-toast position="top-center"></p-toast>
+</div>
+

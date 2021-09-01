@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3fe5aef5ad244c219609213b24b1d77f" Name="Diagram1" ZoomLevel="111">
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.Booking" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.FreeParkingSpace" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.ParkingSpace" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.ParkingSpaceFee" Width="1.5" PointX="1.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.Payment" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.Token" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.UserToParkingSpace" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_Booking_FreeParkingSpace_ParkingSpaceId" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.Car" Width="1.5" PointX="3" PointY="11.75" />
+        <EntityTypeShape EntityType="ParkingManagementSystemModel.User" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_Booking_User_UserId" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_Car_User_UserId" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_Payment_User_UserId" />
+        <AssociationConnector Association="ParkingManagementSystemModel.FK_UserSpace_User_UserId" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

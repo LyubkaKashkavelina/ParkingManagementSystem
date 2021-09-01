@@ -1,0 +1,96 @@
+﻿@model ParkingAdministration.Models.UserToParkingSpaceEntity
+
+@{
+    ViewData["Title"] = "Create";
+    if (Model.UserToParkingSpace.User == null)
+    {
+        Model.UserToParkingSpace.User = new ParkingAdministration.Data.User();
+    }
+}
+
+<h3>Assign parking space</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-9 create-content">
+        <form asp-action="Create">
+            <div class="validation">
+                <span asp-validation-for="UserToParkingSpace.ParkingSpaceId" class="text-danger"></span>
+                <span asp-validation-for="UserToParkingSpace.User.Name" class="text-danger"></span>
+                <span asp-validation-for="UserToParkingSpace.StartDate" class="text-danger"></span>
+                @*@if (Model.Vehicle.CarNumber == null) {
+                    <span asp-validation-for="Vehicle.CarNumber" class="text-danger"></span>
+                }*@
+                @*<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <span asp-validation-for="Vehicle.CarNumber" class="text-danger"></span>*@
+            </div>
+            <div class="create-fields">
+                <div class="user-details">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UserToParkingSpace.UserToParkingSpaceId" />
+                    <div class="form-group assign-form">
+                        <label asp-for="UserToParkingSpace.ParkingSpaceId" class="control-label">Parking space</label>
+                        <select asp-for="UserToParkingSpace.ParkingSpaceId" class="form-control" asp-items="ViewBag.ParkingSpaceId">
+                          <option value="" selected disabled hidden>
+                            Choose parking space
+                          </option>
+                        </select>
+                    </div>
+                    <div class="form-group assign-form">
+                        <label asp-for="UserToParkingSpace.User.Name" class="control-label">Employee</label>
+                        <select asp-for="UserToParkingSpace.User.Name" class="form-control" asp-items="ViewBag.UserId">
+                          <option value="" selected disabled hidden>
+                            Choose employee
+                          </option>
+                        </select>
+                    </div>
+                    <div class="form-group assign-form">
+                        <label asp-for="UserToParkingSpace.StartDate" class="control-label">Start date</label>
+                        <input asp-for="UserToParkingSpace.StartDate" class="form-control" />
+                    </div>
+                    <div class="form-group assign-form">
+                        <label asp-for="UserToParkingSpace.EndDate" class="control-label">End date</label>
+                        <input asp-for="UserToParkingSpace.EndDate" class="form-control" />
+                    </div>
+                    <div class="form-group assign-form">
+                        @*<label type="hidden" asp-for="PhoneNumber" class="control-label">Phone</label>*@
+                        <input type="hidden" asp-for="PhoneNumber" class="form-control"/>
+                    </div>
+                </div>
+                <div class="vehicle-details">
+                    <div class="form-group assign-form car-info">
+                        <label class="control-label car-info-label">Car information</label>
+                    </div>
+                    <div class="form-group assign-form">
+                        @*<label type="hidden" asp-for="Vehicle.CarNumber" class="control-label">License Plate</label>*@
+                        <input type="hidden" asp-for="Vehicle.CarNumber" class="form-control" />
+                    </div>
+                    @*<div class="form-group assign-form">
+                        <label asp-for="Vehicle.Make" class="control-label">Make</label>
+                        <input asp-for="Vehicle.Make" class="form-control" />
+                    </div>
+                    <div class="form-group assign-form">
+                        <label asp-for="Vehicle.Model" class="control-label">Model</label>
+                        <input asp-for="Vehicle.Model" class="form-control" />
+                    </div>
+                    <div class="form-group assign-form">
+                        <label asp-for="Vehicle.Color" class="control-label">Colour</label>
+                        <input asp-for="Vehicle.Color" class="form-control" />
+                    </div>*@
+                </div>
+            </div>
+            <div class="btns">
+                <div class="cancel-btn">
+                    <a asp-action="Index" class="btn btn-primary cancel-btn-inner">Cancel</a>
+                </div>
+                <div class="form-group submit-btn">
+                    <input type="submit" value="Save" class="btn btn-primary submit-btn-inner" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

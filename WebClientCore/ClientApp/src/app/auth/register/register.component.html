@@ -1,0 +1,39 @@
+<div class="auth-container">
+  <div class="logo">
+    <img src='assets/logo.png' />
+  </div>
+  <form [formGroup]="registerForm">
+    <h1>Register your new account</h1>
+    <div class="formContent">
+      <div class="input-container">
+        <label for="name">Username:</label>
+        <input id="name" type="text" class="form-control" formControlName="name" [ngClass]="{'isInvalidField': registerForm.get('name').errors?.usernameformat ||
+                                                                                                               (registerForm.get('name').touched && registerForm.get('name').errors?.required) }" />
+        <span *ngIf="registerForm.get('name').errors?.usernameformat && !registerForm.get('name').errors?.required" class="error">Please input a valid username. The username should be at least 4 letters long.</span>
+        <span *ngIf="registerForm.get('name').touched && registerForm.get('name').errors?.required" class="error">Username is required.</span>
+        <span class="error login-register-error-message" *ngIf="usernameTaken">The Username you entered is already taken. Please enter another Username.</span>
+      </div>
+      <div formGroupName="passwordGroup">
+        <div class="input-container">
+          <label for="password">Password:</label>
+          <input id="password" type="password" class="form-control" formControlName="password" [ngClass]="{'isInvalidField': registerForm.get('passwordGroup.password').errors?.passwordformat ||
+                                                                                                                           (registerForm.get('passwordGroup.password').touched && registerForm.get('passwordGroup.password').errors?.required) }" />
+          <span *ngIf="registerForm.get('passwordGroup.password').errors?.passwordformat && !registerForm.get('passwordGroup.password').errors?.required" class="error">Please input a valid password. The password should be at least 6 caracters long and should have at least one upper case, one lower case letter and one digit. </span>
+          <span *ngIf="registerForm.get('passwordGroup.password').touched && registerForm.get('passwordGroup.password').errors?.required" class="error">Password is required.</span>
+        </div>
+        <div class="input-container">
+          <label for="confirmPassword">Confirm password:</label>
+          <input id="confirmPassword" type="password" class="form-control" formControlName="confirmPassword" [ngClass]="{'isInvalidField': registerForm.get('passwordGroup').errors?.match ||
+                                                                                                                                          (registerForm.get('passwordGroup.confirmPassword').touched && registerForm.get('passwordGroup.confirmPassword').errors?.required) }" />
+          <span *ngIf="registerForm.get('passwordGroup').errors?.match && !registerForm.get('passwordGroup.confirmPassword').errors?.required" class="error">The password you entered don't match.</span>
+          <span *ngIf="registerForm.get('passwordGroup.confirmPassword').touched && registerForm.get('passwordGroup.confirmPassword').errors?.required" class="error">Confirm password is required.</span>
+        </div>
+      </div>
+      <button (click)="onSubmit()" [disabled]="registerForm?.invalid">Sign up</button>
+    </div>
+    <div class="additional-button-container">
+      <h3>Already have an account?</h3>
+      <button routerLinkActive='active' [routerLink]="['']">Log in here</button>
+    </div>
+  </form>
+</div>

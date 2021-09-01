@@ -1,0 +1,737 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ParkingManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParkingSpaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="MonthlyFee" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="CreationDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CarNumber" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Make" Type="nvarchar" MaxLength="64" />
+          <Property Name="Model" Type="nvarchar" MaxLength="64" />
+          <Property Name="Color" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="FreeParkingSpace">
+          <Key>
+            <PropertyRef Name="FreeParkingSpaceId" />
+          </Key>
+          <Property Name="FreeParkingSpaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserSpaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="CreationDate" Type="date" />
+        </EntityType>
+        <EntityType Name="ParkingSpace">
+          <Key>
+            <PropertyRef Name="ParkingSpaceId" />
+          </Key>
+          <Property Name="ParkingSpaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParkingSpaceFeeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParkingSpaceNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParkingSpaceFee">
+          <Key>
+            <PropertyRef Name="ParkingSpaceFeeId" />
+          </Key>
+          <Property Name="ParkingSpaceFeeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="MonthlyFee" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="PaidAmount" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="TokenId" />
+          </Key>
+          <Property Name="TokenId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserToken" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="CreationDate" Type="date" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="32" />
+          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="UserToParkingSpace">
+          <Key>
+            <PropertyRef Name="UserToParkingSpaceId" />
+          </Key>
+          <Property Name="UserToParkingSpaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParkingSpaceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <Association Name="FK_Booking_FreeParkingSpace_ParkingSpaceId">
+          <End Role="FreeParkingSpace" Type="Self.FreeParkingSpace" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FreeParkingSpace">
+              <PropertyRef Name="FreeParkingSpaceId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="ParkingSpaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_User_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_User_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId">
+          <End Role="UserToParkingSpace" Type="Self.UserToParkingSpace" Multiplicity="1" />
+          <End Role="FreeParkingSpace" Type="Self.FreeParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserToParkingSpace">
+              <PropertyRef Name="UserToParkingSpaceId" />
+            </Principal>
+            <Dependent Role="FreeParkingSpace">
+              <PropertyRef Name="UserSpaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId">
+          <End Role="ParkingSpaceFee" Type="Self.ParkingSpaceFee" Multiplicity="1" />
+          <End Role="ParkingSpace" Type="Self.ParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingSpaceFee">
+              <PropertyRef Name="ParkingSpaceFeeId" />
+            </Principal>
+            <Dependent Role="ParkingSpace">
+              <PropertyRef Name="ParkingSpaceFeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_User_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSpace_User_UserId">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserToParkingSpace" Type="Self.UserToParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserToParkingSpace">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId">
+          <End Role="ParkingSpace" Type="Self.ParkingSpace" Multiplicity="1" />
+          <End Role="UserToParkingSpace" Type="Self.UserToParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingSpace">
+              <PropertyRef Name="ParkingSpaceId" />
+            </Principal>
+            <Dependent Role="UserToParkingSpace">
+              <PropertyRef Name="ParkingSpaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetAllBookingsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetAllFreeParkingSpaces" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllFreeParkingSpacesByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetAllPermanentlyFreeParkingSpaces" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetBookingsParkingSpaceNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parkingSpaceId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetFreeParkingSpaceFeeById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FreeParkingSpaceId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetUserParkingSpaceNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <EntityContainer Name="ParkingManagementSystemModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FreeParkingSpace" EntityType="Self.FreeParkingSpace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingSpace" EntityType="Self.ParkingSpace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingSpaceFee" EntityType="Self.ParkingSpaceFee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Token" EntityType="Self.Token" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserToParkingSpace" EntityType="Self.UserToParkingSpace" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Booking_FreeParkingSpace_ParkingSpaceId" Association="Self.FK_Booking_FreeParkingSpace_ParkingSpaceId">
+            <End Role="FreeParkingSpace" EntitySet="FreeParkingSpace" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booking_User_UserId" Association="Self.FK_Booking_User_UserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_User_UserId" Association="Self.FK_Car_User_UserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId" Association="Self.FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId">
+            <End Role="UserToParkingSpace" EntitySet="UserToParkingSpace" />
+            <End Role="FreeParkingSpace" EntitySet="FreeParkingSpace" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId" Association="Self.FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId">
+            <End Role="ParkingSpaceFee" EntitySet="ParkingSpaceFee" />
+            <End Role="ParkingSpace" EntitySet="ParkingSpace" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_User_UserId" Association="Self.FK_Payment_User_UserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSpace_User_UserId" Association="Self.FK_UserSpace_User_UserId">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserToParkingSpace" EntitySet="UserToParkingSpace" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId" Association="Self.FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId">
+            <End Role="ParkingSpace" EntitySet="ParkingSpace" />
+            <End Role="UserToParkingSpace" EntitySet="UserToParkingSpace" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ParkingManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="ParkingSpaceId" Type="Guid" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MonthlyFee" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="FreeParkingSpace" Relationship="Self.FK_Booking_FreeParkingSpace_ParkingSpaceId" FromRole="Booking" ToRole="FreeParkingSpace" />
+          <NavigationProperty Name="User" Relationship="ParkingManagementSystemModel.FK_Booking_User_UserId" FromRole="Booking" ToRole="User" />
+        </EntityType>
+        <EntityType Name="FreeParkingSpace">
+          <Key>
+            <PropertyRef Name="FreeParkingSpaceId" />
+          </Key>
+          <Property Name="FreeParkingSpaceId" Type="Guid" Nullable="false" />
+          <Property Name="UserSpaceId" Type="Guid" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreationDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_FreeParkingSpace_ParkingSpaceId" FromRole="FreeParkingSpace" ToRole="Booking" />
+          <NavigationProperty Name="UserToParkingSpace" Relationship="Self.FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId" FromRole="FreeParkingSpace" ToRole="UserToParkingSpace" />
+        </EntityType>
+        <EntityType Name="ParkingSpace">
+          <Key>
+            <PropertyRef Name="ParkingSpaceId" />
+          </Key>
+          <Property Name="ParkingSpaceId" Type="Guid" Nullable="false" />
+          <Property Name="ParkingSpaceFeeId" Type="Guid" Nullable="false" />
+          <Property Name="ParkingSpaceNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ParkingSpaceFee" Relationship="Self.FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId" FromRole="ParkingSpace" ToRole="ParkingSpaceFee" />
+          <NavigationProperty Name="UserToParkingSpaces" Relationship="Self.FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId" FromRole="ParkingSpace" ToRole="UserToParkingSpace" />
+        </EntityType>
+        <EntityType Name="ParkingSpaceFee">
+          <Key>
+            <PropertyRef Name="ParkingSpaceFeeId" />
+          </Key>
+          <Property Name="ParkingSpaceFeeId" Type="Guid" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonthlyFee" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <NavigationProperty Name="ParkingSpaces" Relationship="Self.FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId" FromRole="ParkingSpaceFee" ToRole="ParkingSpace" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="PaidAmount" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ParkingManagementSystemModel.FK_Payment_User_UserId" FromRole="Payment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="TokenId" />
+          </Key>
+          <Property Name="TokenId" Type="Guid" Nullable="false" />
+          <Property Name="UserToken" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserToParkingSpace">
+          <Key>
+            <PropertyRef Name="UserToParkingSpaceId" />
+          </Key>
+          <Property Name="UserToParkingSpaceId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="ParkingSpaceId" Type="Guid" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="FreeParkingSpaces" Relationship="Self.FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId" FromRole="UserToParkingSpace" ToRole="FreeParkingSpace" />
+          <NavigationProperty Name="ParkingSpace" Relationship="Self.FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId" FromRole="UserToParkingSpace" ToRole="ParkingSpace" />
+          <NavigationProperty Name="User" Relationship="ParkingManagementSystemModel.FK_UserSpace_User_UserId" FromRole="UserToParkingSpace" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Booking_FreeParkingSpace_ParkingSpaceId">
+          <End Role="FreeParkingSpace" Type="Self.FreeParkingSpace" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FreeParkingSpace">
+              <PropertyRef Name="FreeParkingSpaceId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="ParkingSpaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId">
+          <End Role="UserToParkingSpace" Type="Self.UserToParkingSpace" Multiplicity="1" />
+          <End Role="FreeParkingSpace" Type="Self.FreeParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserToParkingSpace">
+              <PropertyRef Name="UserToParkingSpaceId" />
+            </Principal>
+            <Dependent Role="FreeParkingSpace">
+              <PropertyRef Name="UserSpaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId">
+          <End Role="ParkingSpaceFee" Type="Self.ParkingSpaceFee" Multiplicity="1" />
+          <End Role="ParkingSpace" Type="Self.ParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingSpaceFee">
+              <PropertyRef Name="ParkingSpaceFeeId" />
+            </Principal>
+            <Dependent Role="ParkingSpace">
+              <PropertyRef Name="ParkingSpaceFeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId">
+          <End Role="ParkingSpace" Type="Self.ParkingSpace" Multiplicity="1" />
+          <End Role="UserToParkingSpace" Type="Self.UserToParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingSpace">
+              <PropertyRef Name="ParkingSpaceId" />
+            </Principal>
+            <Dependent Role="UserToParkingSpace">
+              <PropertyRef Name="ParkingSpaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ParkingManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="FreeParkingSpaces" EntityType="Self.FreeParkingSpace" />
+          <EntitySet Name="ParkingSpaces" EntityType="Self.ParkingSpace" />
+          <EntitySet Name="ParkingSpaceFees" EntityType="Self.ParkingSpaceFee" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Tokens" EntityType="Self.Token" />
+          <EntitySet Name="UserToParkingSpaces" EntityType="Self.UserToParkingSpace" />
+          <AssociationSet Name="FK_Booking_FreeParkingSpace_ParkingSpaceId" Association="Self.FK_Booking_FreeParkingSpace_ParkingSpaceId">
+            <End Role="FreeParkingSpace" EntitySet="FreeParkingSpaces" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId" Association="Self.FK_FreeParkingSpace_UserToParkingSpace_UserSpaceId">
+            <End Role="UserToParkingSpace" EntitySet="UserToParkingSpaces" />
+            <End Role="FreeParkingSpace" EntitySet="FreeParkingSpaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId" Association="Self.FK_ParkingSpace_ParkingSpaceFee_ParkingSpaceFeeId">
+            <End Role="ParkingSpaceFee" EntitySet="ParkingSpaceFees" />
+            <End Role="ParkingSpace" EntitySet="ParkingSpaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId" Association="Self.FK_UserToParkingSpace_ParkingSpace_ParkingSpaceId">
+            <End Role="ParkingSpace" EntitySet="ParkingSpaces" />
+            <End Role="UserToParkingSpace" EntitySet="UserToParkingSpaces" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllFreeParkingSpaces" ReturnType="Collection(ParkingManagementSystemModel.GetAllFreeParkingSpaces_Result)" />
+          <FunctionImport Name="GetAllPermanentlyFreeParkingSpaces" ReturnType="Collection(Guid)" />
+          <FunctionImport Name="GetBookingsParkingSpaceNumber" ReturnType="Collection(String)">
+          <Parameter Name="parkingSpaceId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetFreeParkingSpaceFeeById" ReturnType="Collection(Decimal)">
+          <Parameter Name="FreeParkingSpaceId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ParkingManagementSystemModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ParkingManagementSystemModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="GetAllFreeParkingSpacesByUserId" ReturnType="Collection(ParkingManagementSystemModel.GetAllFreeParkingSpacesByUserId_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllBookingsByUser" ReturnType="Collection(ParkingManagementSystemModel.GetAllBookingsByUser_Result)">
+          <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <EntitySet Name="Cars" EntityType="ParkingManagementSystemModel.Car" />
+          <FunctionImport Name="GetUserParkingSpaceNumber" ReturnType="Collection(String)">
+          <Parameter Name="userId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <EntitySet Name="Users" EntityType="ParkingManagementSystemModel.User" />
+          <AssociationSet Name="FK_Booking_User_UserId" Association="ParkingManagementSystemModel.FK_Booking_User_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_User_UserId" Association="ParkingManagementSystemModel.FK_Car_User_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Car" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_User_UserId" Association="ParkingManagementSystemModel.FK_Payment_User_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSpace_User_UserId" Association="ParkingManagementSystemModel.FK_UserSpace_User_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserToParkingSpace" EntitySet="UserToParkingSpaces" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="GetAllFreeParkingSpaces_Result">
+          <Property Type="DateTime" Name="StartDate" Nullable="false" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" />
+          <Property Type="Guid" Name="FreeParkingSpaceId" Nullable="false" />
+          <Property Type="String" Name="ParkingSpaceNumber" Nullable="false" MaxLength="32" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAllFreeParkingSpacesByUserId_Result">
+          <Property Type="DateTime" Name="StartDate" Nullable="false" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" />
+          <Property Type="Guid" Name="FreeParkingSpaceId" Nullable="false" />
+          <Property Type="Boolean" Name="IsBooked" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllBookingsByUser_Result">
+          <Property Type="Decimal" Name="MonthlyFee" Nullable="false" Precision="5" Scale="2" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" />
+          <Property Type="Guid" Name="ParkingSpaceId" Nullable="false" />
+          <Property Type="Guid" Name="BookingId" Nullable="false" />
+          <Property Type="String" Name="ParkingSpaceNumber" Nullable="false" MaxLength="32" />
+          <Property Type="Int32" Name="Days" Nullable="true" />
+          <Property Type="String" Name="DueAmountString" Nullable="true" MaxLength="4000" />
+        </ComplexType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="CarNumber" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Make" Type="String" Nullable="true" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" Nullable="true" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" Nullable="true" MaxLength="64" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ParkingManagementSystemModel.FK_Car_User_UserId" FromRole="Car" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="0" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bookings" Relationship="ParkingManagementSystemModel.FK_Booking_User_UserId" FromRole="User" ToRole="Booking" />
+          <NavigationProperty Name="Cars" Relationship="ParkingManagementSystemModel.FK_Car_User_UserId" FromRole="User" ToRole="Car" />
+          <NavigationProperty Name="Payments" Relationship="ParkingManagementSystemModel.FK_Payment_User_UserId" FromRole="User" ToRole="Payment" />
+          <NavigationProperty Name="UserToParkingSpaces" Relationship="ParkingManagementSystemModel.FK_UserSpace_User_UserId" FromRole="User" ToRole="UserToParkingSpace" />
+        </EntityType>
+        <Association Name="FK_Booking_User_UserId">
+          <End Type="ParkingManagementSystemModel.User" Role="User" Multiplicity="1" />
+          <End Type="ParkingManagementSystemModel.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_User_UserId">
+          <End Type="ParkingManagementSystemModel.User" Role="User" Multiplicity="1" />
+          <End Type="ParkingManagementSystemModel.Car" Role="Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_User_UserId">
+          <End Type="ParkingManagementSystemModel.User" Role="User" Multiplicity="1" />
+          <End Type="ParkingManagementSystemModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSpace_User_UserId">
+          <End Type="ParkingManagementSystemModel.User" Role="User" Multiplicity="1" />
+          <End Type="ParkingManagementSystemModel.UserToParkingSpace" Role="UserToParkingSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserToParkingSpace">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ParkingManagementSystemModelStoreContainer" CdmEntityContainer="ParkingManagementSystemEntities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ParkingSpaceId" ColumnName="ParkingSpaceId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="MonthlyFee" ColumnName="MonthlyFee" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FreeParkingSpaces">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.FreeParkingSpace">
+              <MappingFragment StoreEntitySet="FreeParkingSpace">
+                <ScalarProperty Name="FreeParkingSpaceId" ColumnName="FreeParkingSpaceId" />
+                <ScalarProperty Name="UserSpaceId" ColumnName="UserSpaceId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingSpaces">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.ParkingSpace">
+              <MappingFragment StoreEntitySet="ParkingSpace">
+                <ScalarProperty Name="ParkingSpaceId" ColumnName="ParkingSpaceId" />
+                <ScalarProperty Name="ParkingSpaceFeeId" ColumnName="ParkingSpaceFeeId" />
+                <ScalarProperty Name="ParkingSpaceNumber" ColumnName="ParkingSpaceNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingSpaceFees">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.ParkingSpaceFee">
+              <MappingFragment StoreEntitySet="ParkingSpaceFee">
+                <ScalarProperty Name="ParkingSpaceFeeId" ColumnName="ParkingSpaceFeeId" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="MonthlyFee" ColumnName="MonthlyFee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.Token">
+              <MappingFragment StoreEntitySet="Token">
+                <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+                <ScalarProperty Name="UserToken" ColumnName="UserToken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserToParkingSpaces">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.UserToParkingSpace">
+              <MappingFragment StoreEntitySet="UserToParkingSpace">
+                <ScalarProperty Name="UserToParkingSpaceId" ColumnName="UserToParkingSpaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ParkingSpaceId" ColumnName="ParkingSpaceId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllFreeParkingSpaces" FunctionName="ParkingManagementSystemModel.Store.GetAllFreeParkingSpaces">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ParkingManagementSystemModel.GetAllFreeParkingSpaces_Result">
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="FreeParkingSpaceId" ColumnName="FreeParkingSpaceId" />
+                <ScalarProperty Name="ParkingSpaceNumber" ColumnName="ParkingSpaceNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllPermanentlyFreeParkingSpaces" FunctionName="ParkingManagementSystemModel.Store.GetAllPermanentlyFreeParkingSpaces" />
+          <FunctionImportMapping FunctionImportName="GetBookingsParkingSpaceNumber" FunctionName="ParkingManagementSystemModel.Store.GetBookingsParkingSpaceNumber" />
+          <FunctionImportMapping FunctionImportName="GetFreeParkingSpaceFeeById" FunctionName="ParkingManagementSystemModel.Store.GetFreeParkingSpaceFeeById" />
+          <FunctionImportMapping FunctionImportName="GetAllFreeParkingSpacesByUserId" FunctionName="ParkingManagementSystemModel.Store.GetAllFreeParkingSpacesByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ParkingManagementSystemModel.GetAllFreeParkingSpacesByUserId_Result">
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="FreeParkingSpaceId" ColumnName="FreeParkingSpaceId" />
+                <ScalarProperty Name="IsBooked" ColumnName="IsBooked" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllBookingsByUser" FunctionName="ParkingManagementSystemModel.Store.GetAllBookingsByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ParkingManagementSystemModel.GetAllBookingsByUser_Result">
+                <ScalarProperty Name="MonthlyFee" ColumnName="MonthlyFee" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="ParkingSpaceId" ColumnName="ParkingSpaceId" />
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="ParkingSpaceNumber" ColumnName="ParkingSpaceNumber" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="DueAmountString" ColumnName="DueAmountString" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetUserParkingSpaceNumber" FunctionName="ParkingManagementSystemModel.Store.GetUserParkingSpaceNumber" />
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ParkingManagementSystemModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

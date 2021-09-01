@@ -1,0 +1,23 @@
+<div class="auth-container">
+  <div class="logo">
+    <img src='assets/logo.png' />
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="formContent">
+      <div class="input-container">
+        <label for="name">Username:</label>
+        <input type="text" id="name" class="form-control" formControlName="name" />
+      </div>
+      <div class="input-container">
+        <label for="password">Password:</label>
+        <input type="password" id="password" class="form-control" formControlName="password" />
+      </div>
+      <span *ngIf="userNotFound" class="error login-register-error-message">Incorrect username or password. Please try again.</span>
+      <button>Log in</button>
+    </div>
+    <div class="additional-button-container">
+      <h3>Don't have an account?</h3>
+      <button routerLinkActive='active' [routerLink]="['/register']">Sign up here</button>
+    </div>
+  </form>
+</div>

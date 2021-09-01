@@ -1,0 +1,36 @@
+<div class="free-spaces-container">
+  <h5>Your sublets</h5>
+  <a *ngIf="currentRoute !== 'free' " routerLinkActive='active' [routerLink]="['/free']" class="sublet-button">Manage my parking space</a>
+  <p-table [value]="freeSpaces" (sortFunction)="sortFn($event)" [customSort]="true" styleClass="p-datatable-striped p-datatable-responsive-demo">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="StartDateString">Start date <p-sortIcon field="StartDateString"></p-sortIcon></th>
+        <th pSortableColumn="EndDateString">End date <p-sortIcon field="EndDateString"></p-sortIcon></th>
+        <th class="status">Status</th>
+        <th class="cancel-free-space-column">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>
+          <span class="p-column-title">Start date</span>
+          {{product.StartDateString}}
+        </td>
+        <td>
+          <span class="p-column-title">End date</span>
+          {{product.EndDateString}}
+        </td>
+        <td>
+          <span class="p-column-title">Status</span>
+          {{product.IsBooked ? "Booked" : "Free"}}
+        </td>
+        <td>
+          <span class="p-column-title">Action</span>
+          <button [disabled]="product.IsBooked" class="cancel-button" (click)="cancel(product)">Cancel</button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast position="top-center"></p-toast>

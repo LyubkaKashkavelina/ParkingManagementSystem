@@ -1,0 +1,80 @@
+﻿@model ParkingAdministration.Models.UserToParkingSpaceEntity
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Car Information</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.UserToParkingSpace.User)*@
+        Employee
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.UserToParkingSpace.User.Name)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.UserToParkingSpace.ParkingSpaceId)*@
+        Parking space
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.UserToParkingSpace.ParkingSpace.ParkingSpaceNumber)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.PhoneNumber)*@
+        Telephone
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.PhoneNumber)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.UserToParkingSpace.StartDate)*@
+        Start date
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.UserToParkingSpace.StartDate)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.UserToParkingSpace.EndDate)*@
+        End date
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.UserToParkingSpace.EndDate)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.Vehicle.CarNumber)*@
+        License Plate
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Vehicle.CarNumber)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.Vehicle.Make)*@
+        Make
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Vehicle.Make)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.Vehicle.Model)*@
+        Model
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Vehicle.Model)
+      </dd>
+      <dt class="col-sm-2">
+        @*@Html.DisplayNameFor(model => model.Vehicle.Color)*@
+        Colour
+      </dt>
+      <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Vehicle.Color)
+      </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UserToParkingSpace.UserToParkingSpaceId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,94 @@
+.user-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 20px 0;
+
+  .user-info-heading {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 25px;
+
+    .pencil-button {
+      margin-left: 10px;
+      color: #f58220;
+      font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .info-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .label {
+      font-weight: bold;
+      margin-right: 7px;
+    }
+  }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+
+    .isInvalidField {
+      border-color: red;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 10px;
+      margin-left: 15px;
+    }
+
+    input {
+      width: 260px;
+      margin: 5px 15px;
+    }
+
+    label {
+      margin-left: 15px;
+      margin-bottom: 0;
+    }
+  }
+
+  .dialog {
+    .form-heading {
+      text-align: center;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 25px;
+
+      .modal-edit-button {
+        background-color: #f58220;
+        color: white;
+        height: 35px;
+        width: 100px;
+        border-radius: 3px;
+
+        &:disabled {
+          background-color: #e0d4c9;
+        }
+      }
+
+      .modal-close-button {
+        background-color: white;
+        color: #3b3c3c;
+        height: 35px;
+        width: 100px;
+        border: 2px solid #f58220;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

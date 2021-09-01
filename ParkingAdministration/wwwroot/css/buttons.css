@@ -1,0 +1,58 @@
+﻿/*Parking Spaces Index*/
+.search-btn {
+  width: 100px;
+  height: 40px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+
+/*Create/Edit btns*/
+.btns {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+  width: 400px;
+  margin: auto;
+}
+
+.cancel-btn {
+  width: 48%;
+}
+
+.submit-btn {
+  width: 48%;
+}
+
+.submit-btn-inner {
+  width: 100%;
+}
+
+.cancel-btn-inner {
+  width: 100%;
+}
+
+
+/*Home page btns */
+.report-btn {
+  width: 250px;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.report-btn:hover {
+  color: white !important;
+}
+
+.report-btns {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

@@ -1,0 +1,81 @@
+﻿@model ParkingAdministration.Models.UserToParkingSpaceEntity
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+  <h3>Edit information</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-9">
+      <form asp-action="Edit">
+        <div class="validation">
+          <span asp-validation-for="UserToParkingSpace.ParkingSpaceId" class="text-danger"></span>
+          <span asp-validation-for="UserToParkingSpace.User.Name" class="text-danger"></span>
+          <span asp-validation-for="UserToParkingSpace.StartDate" class="text-danger"></span>
+          <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+          <span asp-validation-for="Vehicle.CarNumber" class="text-danger"></span>
+        </div>
+        <div class="create-fields">
+          <div class="user-details">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserToParkingSpace.UserToParkingSpaceId" />
+            <div class="form-group assign-form">
+              <label asp-for="UserToParkingSpace.ParkingSpaceId" class="control-label">Parking Space</label>
+              <select asp-for="UserToParkingSpace.ParkingSpaceId" class="form-control" asp-items="ViewBag.ParkingSpaceId"></select>
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="UserToParkingSpace.User.Name" class="control-label">Employee</label>
+              <select asp-for="UserToParkingSpace.User.Name" class="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="UserToParkingSpace.StartDate" class="control-label">Start Date</label>
+              <input asp-for="UserToParkingSpace.StartDate" class="form-control" asp-items="ViewBag.UserToParkingSpace.StartDate" />
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="UserToParkingSpace.EndDate" class="control-label">End Date</label>
+              <input asp-for="UserToParkingSpace.EndDate" class="form-control" />
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="PhoneNumber" class="control-label">Phone</label>
+              <input asp-for="PhoneNumber" class="form-control" asp-items="ViewBag.PhoneNumber" />
+            </div>
+          </div>
+          <div class="vehicle-details">
+            <div class="form-group assign-form car-info">
+              <label class="control-label car-info-label">Car Information</label>
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="Vehicle.CarNumber" class="control-label">License Plate</label>
+              <input asp-for="Vehicle.CarNumber" class="form-control" />
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="Vehicle.Make" class="control-label">Make</label>
+              <input asp-for="Vehicle.Make" class="form-control" />
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="Vehicle.Model" class="control-label">Model</label>
+              <input asp-for="Vehicle.Model" class="form-control" />
+            </div>
+            <div class="form-group assign-form">
+              <label asp-for="Vehicle.Color" class="control-label">Colour</label>
+              <input asp-for="Vehicle.Color" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="btns">
+          <div class="cancel-btn">
+            <a asp-action="Index" class="btn btn-primary cancel-btn-inner">Cancel</a>
+          </div>
+          <div class="form-group submit-btn">
+            <input type="submit" value="Save" class="btn btn-primary submit-btn-inner" />
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,66 @@
+<div class="user-info">
+  <div class="user-info-heading">Parking information<i class="pi pi-pencil pencil-button" (click)="showModalDialog()"></i></div>
+  <div class="info-container">
+    <div *ngIf="!bookedParkingSpaceForToday" class="label">Parking space:</div>
+    <div *ngIf="bookedParkingSpaceForToday" class="label">Booked parking space:</div>
+
+    <div *ngIf="parkingSpaceNumber && !bookedParkingSpaceForToday">{{parkingSpaceNumber}}</div>
+    <div *ngIf="bookedParkingSpaceForToday">{{bookedParkingSpaceForToday}}</div>
+    <div *ngIf="!parkingSpaceNumber && !bookedParkingSpaceForToday" class="parking-space-number-container">If you have any issues, send us email <a href="mailto:parkingsystem@gmail.com?subject=Parking%20space%20issues" target="_blank">here</a></div>
+  </div>
+  <div class="info-container">
+    <div class="label">Car plate:</div>
+    <div>{{userInfo.CarNumber}}</div>
+  </div>
+  <div class="info-container">
+    <div class="label">Make:</div>
+    <div>{{userInfo.Make}}</div>
+  </div>
+  <div class="info-container">
+    <div class="label">Model:</div>
+    <div>{{userInfo.Model}}</div>
+  </div>
+  <div class="info-container">
+    <div class="label">Colour:</div>
+    <div>{{userInfo.Color}}</div>
+  </div>
+  <div class="info-container">
+    <div class="label">Telephone:</div>
+    <div>{{userInfo.PhoneNumber}}</div>
+  </div>
+
+  <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false" (onHide)="close()" class="dialog">
+    <h4 class="form-heading">Edit parking information</h4>
+    <form [formGroup]="editForm" class="edit-form">
+      <label for="carnumber">Car plate *</label>
+      <input type="text" name="carnumber" id="carnumber" class="form-control" formControlName="CarNumber" [ngClass]="{'isInvalidField': editForm.get('CarNumber').touched && ( editForm.get('CarNumber').errors?.required || editForm.get('CarNumber').errors?.maxlength ) }" />
+      <span class="error-message" *ngIf="editForm.get('CarNumber').touched && editForm.get('CarNumber').errors?.required">This field is required</span>
+      <span class="error-message" *ngIf="editForm.get('CarNumber').touched && editForm.get('CarNumber').errors?.maxlength">Maximum length is 16 symbols</span>
+
+      <label for="make">Make</label>
+      <input type="text" name="make" id="make" class="form-control" formControlName="Make" [ngClass]="{'isInvalidField': editForm.get('Make').touched && editForm.get('Make').errors?.maxlength }" />
+      <span class="error-message" *ngIf="editForm.get('Make').touched && editForm.get('Make').errors?.maxlength">Maximum length is 64 symbols</span>
+
+      <label for="model">Model</label>
+      <input type="text" name="model" id="model" class="form-control" formControlName="Model" [ngClass]="{'isInvalidField': editForm.get('Model').touched && editForm.get('Model').errors?.maxlength }" />
+      <span class="error-message" *ngIf="editForm.get('Model').touched && editForm.get('Model').errors?.maxlength">Maximum length is 64 symbols</span>
+
+      <label for="color">Colour</label>
+      <input type="text" name="color" id="color" class="form-control" formControlName="Color" [ngClass]="{'isInvalidField': editForm.get('Color').touched && editForm.get('Color').errors?.maxlength }" />
+      <span class="error-message" *ngIf="editForm.get('Color').touched && editForm.get('Color').errors?.maxlength">Maximum length is 64 symbols</span>
+
+      <label for="phonenumber">Phone number *</label>
+      <input type="text" name="phonenumber" id="phonenumber" class="form-control" formControlName="PhoneNumber" [ngClass]="{'isInvalidField': editForm.get('PhoneNumber').touched && ( editForm.get('PhoneNumber').errors?.required || editForm.get('PhoneNumber').errors?.maxlength ) }" />
+      <span class="error-message" *ngIf="editForm.get('PhoneNumber').touched && editForm.get('PhoneNumber').errors?.required">This field is required</span>
+      <span class="error-message" *ngIf="editForm.get('PhoneNumber').touched && editForm.get('PhoneNumber').errors?.maxlength">Maximum 32 symbols.</span>
+
+    </form>
+    <div class="footer">
+      <button (click)="close()" class="modal-close-button">Cancel</button>
+      <button (click)="edit()" class="modal-edit-button" [disabled]="editForm?.invalid">Save</button>
+    </div>
+  </p-dialog>
+
+  <p-toast position="top-center"></p-toast>
+</div>

@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHost", "WebHost\WebHost.csproj", "{7850F0BA-85CD-433F-A595-D899AB4CA748}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHost.Repository", "WebHost.Repository\WebHost.Repository.csproj", "{1192DBF5-5DC0-46A1-B25A-52407E7F0272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHost.Utility", "WebHost.Utility\WebHost.Utility.csproj", "{7E028716-7AF5-4EC8-99C6-85A679038C86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHost.Data", "WebHost.Data\WebHost.Data.csproj", "{1E77414C-9EB7-4868-A274-CEB36BD8CBF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClientCore", "WebClientCore\WebClientCore.csproj", "{E99E5946-4338-46FA-818E-21BDA7A4F3AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingAdministration", "ParkingAdministration\ParkingAdministration.csproj", "{3C42BC22-F129-4636-9399-5D514AA17CF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveDirectory.Access", "ActiveDirectory.Access\ActiveDirectory.Access.csproj", "{115EA0B5-37D2-412A-A782-F01FBF5574B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7850F0BA-85CD-433F-A595-D899AB4CA748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7850F0BA-85CD-433F-A595-D899AB4CA748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7850F0BA-85CD-433F-A595-D899AB4CA748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7850F0BA-85CD-433F-A595-D899AB4CA748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1192DBF5-5DC0-46A1-B25A-52407E7F0272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1192DBF5-5DC0-46A1-B25A-52407E7F0272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1192DBF5-5DC0-46A1-B25A-52407E7F0272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1192DBF5-5DC0-46A1-B25A-52407E7F0272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E028716-7AF5-4EC8-99C6-85A679038C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E028716-7AF5-4EC8-99C6-85A679038C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E028716-7AF5-4EC8-99C6-85A679038C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E028716-7AF5-4EC8-99C6-85A679038C86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E77414C-9EB7-4868-A274-CEB36BD8CBF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E77414C-9EB7-4868-A274-CEB36BD8CBF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E77414C-9EB7-4868-A274-CEB36BD8CBF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E77414C-9EB7-4868-A274-CEB36BD8CBF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E99E5946-4338-46FA-818E-21BDA7A4F3AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E99E5946-4338-46FA-818E-21BDA7A4F3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E99E5946-4338-46FA-818E-21BDA7A4F3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E99E5946-4338-46FA-818E-21BDA7A4F3AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C42BC22-F129-4636-9399-5D514AA17CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C42BC22-F129-4636-9399-5D514AA17CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C42BC22-F129-4636-9399-5D514AA17CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C42BC22-F129-4636-9399-5D514AA17CF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{115EA0B5-37D2-412A-A782-F01FBF5574B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{115EA0B5-37D2-412A-A782-F01FBF5574B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{115EA0B5-37D2-412A-A782-F01FBF5574B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{115EA0B5-37D2-412A-A782-F01FBF5574B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A12510BA-9E4F-4BBF-B049-70B710F3D1CB}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfsserver1:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = WebHost\\WebHost.csproj
+		SccProjectName1 = WebHost
+		SccLocalPath1 = WebHost
+		SccProjectUniqueName2 = WebHost.Repository\\WebHost.Repository.csproj
+		SccProjectName2 = WebHost.Repository
+		SccLocalPath2 = WebHost.Repository
+		SccProjectUniqueName3 = WebHost.Utility\\WebHost.Utility.csproj
+		SccProjectName3 = WebHost.Utility
+		SccLocalPath3 = WebHost.Utility
+		SccProjectUniqueName4 = WebHost.Data\\WebHost.Data.csproj
+		SccProjectName4 = WebHost.Data
+		SccLocalPath4 = WebHost.Data
+		SccProjectUniqueName5 = WebClientCore\\WebClientCore.csproj
+		SccProjectName5 = WebClientCore
+		SccLocalPath5 = WebClientCore
+		SccProjectUniqueName6 = ParkingAdministration\\ParkingAdministration.csproj
+		SccProjectName6 = ParkingAdministration
+		SccLocalPath6 = ParkingAdministration
+		SccProjectUniqueName7 = ActiveDirectory.Access\\ActiveDirectory.Access.csproj
+		SccProjectName7 = ActiveDirectory.Access
+		SccLocalPath7 = ActiveDirectory.Access
+	EndGlobalSection
+EndGlobal

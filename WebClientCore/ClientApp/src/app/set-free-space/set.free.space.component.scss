@@ -1,0 +1,84 @@
+.page-container {
+  height: 100%;
+}
+.main-content {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+
+  .parking-info {
+    width: 65%;
+  }
+  .heading {
+    margin: 25px;
+    padding: 5px;
+    border-bottom: 1px solid black;
+  }
+
+  .sublet-button-container {
+    width: 65%;
+
+    .button {
+        background-color: #f58220;
+        color: white;
+        height: 35px;
+        width: 130px;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 25px auto 0 0;
+        font-size: 20px;
+      }
+  }
+  
+  .freedSpaces {
+    margin: 20px 0;
+  }
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+
+  .calendar {
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 25px;
+
+    .modal-set-free-button {
+      background-color: #f58220;
+      color: white;
+      height: 35px;
+      width: 100px;
+      border-radius: 3px;
+
+      &:disabled {
+        background-color: #e0d4c9;
+      }
+    }
+
+    .modal-close-button {
+      background-color: white;
+      color: #3b3c3c;
+      height: 35px;
+      width: 100px;
+      border: 2px solid #f58220;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

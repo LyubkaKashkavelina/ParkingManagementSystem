@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ParkingAdministration.Data.UserToParkingSpace>
+@using System;
+@{
+  ViewData["Title"] = "Index";
+}
+
+<p>
+  <a asp-action="Create" class="btn btn-info assign-btn">Assign Parking Space</a>
+</p>
+<form asp-controller="Users" asp-action="Index" method="get">
+
+
+  <div class="search-form">
+    <input class="search-input" type="text" placeholder="Search for parking space, user or phone number..." name="searchString" value="@ViewData["FindEmployee"]">
+    <button class="search-btn" type="submit">Search</button>
+    <a asp-action="Index">Clear search result</a>
+  </div>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Parking Space
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.User)
+      </th>
+      <th>
+        Phone
+      </th>
+      <th>
+        Start Date
+      </th>
+      <th>
+        End Date
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.ParkingSpace.ParkingSpaceNumber)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.User.Name)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.StartDate)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.EndDate)
+      </td>
+      <td>
+        <div class="dropright drop-down-items">
+          <img style="width: 20px" class="dropdown-toggle dropdown-dots" data-toggle="dropdown" type="image/x-icon" src="@Url.Content("../Resources/three-dots-more-indicator.svg")" />
+          <div class="dropdown-menu dropdown-action" aria-labelledby="dropdownMenuButton">
+            <div class="items-container">
+              <a class="action" asp-action="Edit" asp-route-id="@item.UserToParkingSpaceId">Edit</a>
+              <a class="action" asp-action="Details" asp-route-id="@item.UserToParkingSpaceId">Details</a>
+              <a class="action" asp-action="Delete" asp-route-id="@item.UserToParkingSpaceId">Delete</a>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

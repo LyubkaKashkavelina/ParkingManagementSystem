@@ -1,0 +1,20 @@
+<div class="page-container">
+  <nav-menu></nav-menu>
+  <div class="free-spaces-container">
+    <div *ngIf="!isParkingInfoFilled" class="error-message">Please fill your Car plate and Telephone number before booking.</div>
+    <all-free-spaces-table [freeSpaces]="allfreeSpaces" [isParkingInfoFilled]="isParkingInfoFilled" (emitData)="showModalDialog($event)"></all-free-spaces-table>
+  </div>
+
+  
+  <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000"
+            [draggable]="false" [resizable]="false" (onHide)="close()" class="dialog">
+    <p-calendar [(ngModel)]="result" [inline]="true" [minDate]="startDate" [maxDate]="endDate" [showOtherMonths]="false" selectionMode="range" [locale]="en" class="calendar"></p-calendar>
+    <div class="footer">
+      <button (click)="close()" class="modal-close-button">Close</button>
+      <button (click)="book()" class="modal-book-button" [disabled]="!result">Book</button>
+    </div>
+  </p-dialog>
+  <p-toast position="top-center"></p-toast>
+</div>
+
+
