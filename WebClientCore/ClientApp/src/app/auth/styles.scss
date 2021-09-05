@@ -12,6 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #f4f5f7;
 
     img {
       height: auto;
@@ -45,6 +46,7 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 10px;
+
       input {
         width: 100%;
       }

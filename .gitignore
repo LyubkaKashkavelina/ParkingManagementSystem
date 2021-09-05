@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/WebClientCore/ClientApp/src/assets/logo3.png
+/WebClientCore/ClientApp/src/assets/logo1.png

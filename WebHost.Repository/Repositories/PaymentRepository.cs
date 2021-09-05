@@ -31,7 +31,7 @@
             payment.PaidAmount = (decimal)payment.PaidAmount;     
 
             this.ParkingManagementSystemContext.Payments.Add(payment);
-            this.ParkingManagementSystemContext.SaveChanges();
+            this.ParkingManagementSystemContext.SaveChanges(); 
 
             return payment;
         }

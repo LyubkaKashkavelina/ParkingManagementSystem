@@ -90,7 +90,7 @@ namespace ParkingAdministration.Controllers
                     }
                     else
                     {
-                        isValid = loginModel.Password == "1111" && !string.IsNullOrEmpty(loginModel.Name);
+                        isValid = loginModel.Password == "admin123!" && !string.IsNullOrEmpty(loginModel.Name);
                     }
                     if (isValid)
                     {

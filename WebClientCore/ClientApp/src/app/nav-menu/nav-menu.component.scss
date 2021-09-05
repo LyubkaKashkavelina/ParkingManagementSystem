@@ -58,7 +58,7 @@
       font-weight: bold;
       height: 35px;
       width: 100px;
-      border: 2px solid #f58220;
+      border: 2px solid #B251D4;
       border-radius: 3px;
       display: flex;
       align-items: center;
@@ -92,113 +92,114 @@
       pointer-events: none;
       text-decoration: none;
     }
-      
+
     .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus {
       box-shadow: none;
     }
   }
-    ::ng-deep p-menubarsub {
-      width: 100%;
-    }
-  }
 
-  p-menubar {
-    height: 65px;
-    width: 100vw;
+  ::ng-deep p-menubarsub {
+    width: 100%;
+  }
+}
+
+p-menubar {
+  height: 65px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f4f5f7;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+
+
+  nav {
+    height: 80%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #f4f5f7;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
+    justify-content: space-between;
 
+    a {
+      height: 100%;
 
-    nav {
-      height: 80%;
+      img {
+        height: 100%;
+        margin-left: 30px;
+      }
+    }
+
+    .main-content {
       width: 100%;
       display: flex;
       flex-direction: row;
-      align-items: center;
       justify-content: space-between;
 
       a {
-        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
 
-        img {
-          height: 100%;
-          margin-left: 30px;
+      .links-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        a {
+          color: #3b3c3c;
+          font-size: 20px;
+          font-weight: bold;
+          border-radius: 3px;
+          padding: 3px 5px;
+          margin: 0 30px;
+
+          &:hover {
+            background-color: #B251D4;
+            color: white;
+            text-decoration: none;
+          }
         }
       }
 
-      .main-content {
-        width: 100%;
+      .user-logout-container {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
 
-        a {
+        p {
+          margin: 0;
           display: flex;
-          flex-direction: row;
           align-items: center;
-        }
+          color: #3b3c3c;
+          font-size: 20px;
 
-        .links-container {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-
-          a {
-            color: #3b3c3c;
-            font-size: 20px;
+          span {
             font-weight: bold;
-            border-radius: 3px;
-            padding: 3px 5px;
-            margin: 0 30px;
-
-            &:hover {
-              background-color: #f58220;
-              color: white;
-              text-decoration: none;
-            }
+            font-style: italic;
+            padding-left: 5px;
           }
         }
 
-        .user-logout-container {
+        .logout-link {
+          margin: 0 30px;
+          background-color: #c43b3b;
+          color: white;
+          height: 35px;
+          width: 100px;
+          border-radius: 3px;
           display: flex;
-          flex-direction: row;
+          justify-content: center;
 
-          p {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            color: #3b3c3c;
-            font-size: 20px;
-
-            span {
-              font-weight: bold;
-              font-style: italic;
-              padding-left: 5px;
-            }
-          }
-
-          .logout-link {
-            margin: 0 30px;
-            background-color: #c43b3b;
-            color: white;
-            height: 35px;
-            width: 100px;
-            border-radius: 3px;
-            display: flex;
-            justify-content: center;
-
-            &:hover {
-              background-color: none;
-              text-decoration: none;
-              cursor: pointer;
-            }
+          &:hover {
+            background-color: none;
+            text-decoration: none;
+            cursor: pointer;
           }
         }
       }
     }
   }
+}

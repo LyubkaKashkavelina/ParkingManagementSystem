@@ -279,7 +279,13 @@ namespace ParkingAdministration.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var userToParkingSpace = await this._context.UserToParkingSpaces.FindAsync(id);
+            var freeParkingSpaceId = _context.FreeParkingSpaces.Where(f => f.UserSpaceId == id);
+            var ids = freeParkingSpaceId.Select(f => f.FreeParkingSpaceId).ToList();
+            var freeParkingSpace =  _context.FreeParkingSpaces.Where(f => ids.Contains(f.FreeParkingSpaceId));
+            var bookings = _context.Bookings.Where(b => ids.Contains(b.ParkingSpaceId));
 
+            this._context.Bookings.RemoveRange(bookings);
+            this._context.FreeParkingSpaces.RemoveRange(freeParkingSpace);
             this._context.UserToParkingSpaces.Remove(userToParkingSpace);
             await this._context.SaveChangesAsync();
 
